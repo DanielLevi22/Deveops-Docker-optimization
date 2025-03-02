@@ -30,6 +30,8 @@ FROM node:current-alpine
 # Define novamente o diretório de trabalho para a etapa de produção
 WORKDIR /usr/src/app
 
+COPY --from=build /usr/src/app/package.json ./
+
 # Copia apenas os artefatos gerados (pasta dist) da etapa de build
 # Isso mantém a imagem final leve, sem o código fonte ou ferramentas de build
 COPY --from=build /usr/src/app/dist ./dist
@@ -43,4 +45,4 @@ EXPOSE 3000
 
 # Define o comando para iniciar a aplicação em modo produção
 # O script "start" no package.json provavelmente roda a versão otimizada
-CMD [ "yarn", "run", "start" ]
+CMD [ "yarn", "run", "start:prod" ]
