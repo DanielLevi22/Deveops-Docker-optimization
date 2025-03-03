@@ -1,7 +1,6 @@
 # Etapa de build: Usa a imagem leve node:current-alpine como base e nomeia essa etapa como "build"
 # A otimização aqui vem do uso de multi-stage build, separando construção de execução
-FROM node:current-alpine AS build
-
+FROM node:20 AS build 
 # Define o diretório de trabalho no contêiner para organizar os arquivos
 WORKDIR /usr/src/app
 
@@ -10,6 +9,7 @@ WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 
 # Instala todas as dependências (desenvolvimento e produção) necessárias para construir a aplicação
+
 RUN yarn 
 
 # Copia todo o código fonte para o contêiner
